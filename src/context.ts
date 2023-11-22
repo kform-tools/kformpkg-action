@@ -28,3 +28,4 @@ export async function getInputs(): Promise<Inputs> {
     ref: `${targetHostname}/${targetPkgNamespace}/${targetPkgName}:${version}`,
   };
 }
+;
