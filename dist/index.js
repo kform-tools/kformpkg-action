@@ -24311,6 +24311,7 @@ function getInputs() {
     });
 }
 exports.getInputs = getInputs;
+;
 
 
 /***/ }),
@@ -24359,7 +24360,9 @@ function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const inputs = yield context.getInputs();
-            console.log(`inputs: ${inputs}!`);
+            console.log(`${inputs.sourcePath}`);
+            console.log(`${inputs.ref}`);
+            //console.log(`inputs: sourcePath=${inputs.sourcePath}, ref=${inputs.ref}!`);
         }
         catch (error) {
             if (error instanceof Error)
