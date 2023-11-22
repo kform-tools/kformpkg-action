@@ -5,6 +5,7 @@ export const osPlat: string = os.platform();
 export const osArch: string = os.arch();
 
 export interface Inputs {
+  version: string;
   sourcePath: string;
   ref: string;
 }
@@ -24,6 +25,7 @@ export async function getInputs(): Promise<Inputs> {
   const version: string = process.env.GITHUB_REF_NAME || "";
  
   return {
+    version: core.getInput('kformVersion') || 'latest',
     sourcePath: core.getInput('sourcePkgDir') || 'config',
     ref: `${targetHostname}/${targetPkgNamespace}/${targetPkgName}:${version}`,
   };

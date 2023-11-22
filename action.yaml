@@ -3,6 +3,10 @@ description: 'kformpkg-action, a release automation tool for kform providers and
 author: 'kform'
 
 inputs:
+  kformVersion:
+    description: 'kform version'
+    default: 'latest'
+    required: false
   sourcePkgDir:
     description: 'Directory from which the package is sourced'
     default: config

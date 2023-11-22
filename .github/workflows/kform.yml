@@ -1,7 +1,7 @@
 # This workflow will build a golang project
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-go
 
-name: Go
+name: kform
 
 on:
   workflow_dispatch:
@@ -12,7 +12,7 @@ on:
   
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
     steps:
     - name: checkout
@@ -24,4 +24,5 @@ jobs:
     - name: kformpackage-action
       uses: kform-tools/kformpkg-action@main
       with:
+        kformVersion: latest
         targetPkgRegistryHostname: ghcr.io
