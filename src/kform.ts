@@ -70,3 +70,8 @@ export async function install(version: string): Promise<string> {
     const ext: string = context.osPlat == 'win32' ? 'zip' : 'tar.gz';
     return util.format('kform_%s_%s.%s', platform, arch, ext);
   };
+
+  /*
+  https://github.com/henderiw-nephio/kform/releases/download/v0.0.1/kform_Linux_x86_64.tar.gz
+  https://github.com/henderiw-nephio/kform/releases/download/latest/kform_Linux_x86_64.tar.gz
+  */
