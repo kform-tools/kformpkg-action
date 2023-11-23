@@ -28227,7 +28227,7 @@ const tc = __importStar(__nccwpck_require__(4274));
 function install(version) {
     return __awaiter(this, void 0, void 0, function* () {
         const filename = getFilename();
-        const downloadUrl = util.format('https://github.com/kform-dev/kform/releases/download/%s/%s', version, filename);
+        const downloadUrl = util.format('https://github.com/henderiw-nephio/kform/releases/download/%s/%s', version, filename);
         core.info(`Downloading ${downloadUrl}`);
         const downloadPath = yield tc.downloadTool(downloadUrl);
         core.debug(`Downloaded to ${downloadPath}`);
@@ -28282,7 +28282,7 @@ const getFilename = () => {
     }
     const platform = context.osPlat == 'win32' ? 'Windows' : context.osPlat == 'darwin' ? 'Darwin' : 'Linux';
     const ext = context.osPlat == 'win32' ? 'zip' : 'tar.gz';
-    return util.format('kform%s_%s.%s', platform, arch, ext);
+    return util.format('kform_%s_%s.%s', platform, arch, ext);
 };
 
 
