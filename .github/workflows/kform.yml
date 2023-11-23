@@ -26,3 +26,5 @@ jobs:
       with:
         kformVersion: v0.0.1
         targetPkgRegistryHostname: ghcr.io
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
