@@ -1,6 +1,7 @@
 import * as core from '@actions/core'
 import * as context from './context';
 import * as kform from './kform';
+import * as exec from '@actions/exec';
 
 async function run(): Promise<void> {
   try {
@@ -11,6 +12,8 @@ async function run(): Promise<void> {
     
     const bin = await kform.install(inputs.version);
     core.info(`kform ${inputs.version} installed successfully`);
+
+    await exec.exec(`${bin} pkg push ${inputs.ref} ${inputs.sourcePath} --releaser`);
 
   } catch (error) {
     if (error instanceof Error) core.setFailed(error.message)

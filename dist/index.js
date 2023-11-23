@@ -28329,6 +28329,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core = __importStar(__nccwpck_require__(6150));
 const context = __importStar(__nccwpck_require__(8834));
 const kform = __importStar(__nccwpck_require__(9654));
+const exec = __importStar(__nccwpck_require__(4261));
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -28338,6 +28339,7 @@ function run() {
             console.log(`ref: ${inputs.ref}`);
             const bin = yield kform.install(inputs.version);
             core.info(`kform ${inputs.version} installed successfully`);
+            yield exec.exec(`${bin} pkg push ${inputs.ref} ${inputs.sourcePath} --releaser`);
         }
         catch (error) {
             if (error instanceof Error)
