@@ -8,7 +8,7 @@ import * as tc from '@actions/tool-cache';
 export async function install(version: string): Promise<string> {
     const filename = getFilename();
     const downloadUrl = util.format(
-      'https://github.com/kform-dev/kform/releases/download/%s/%s',
+      'https://github.com/henderiw-nephio/kform/releases/download/%s/%s',
       version,
       filename
     );
@@ -68,5 +68,5 @@ export async function install(version: string): Promise<string> {
     }
     const platform: string = context.osPlat == 'win32' ? 'Windows' : context.osPlat == 'darwin' ? 'Darwin' : 'Linux';
     const ext: string = context.osPlat == 'win32' ? 'zip' : 'tar.gz';
-    return util.format('kform%s_%s.%s', platform, arch, ext);
+    return util.format('kform_%s_%s.%s', platform, arch, ext);
   };
