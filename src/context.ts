@@ -26,7 +26,7 @@ export async function getInputs(): Promise<Inputs> {
   const version: string = process.env.GITHUB_REF_NAME || "";
  
   return {
-    version: core.getInput('kformVersion') || 'latest',
+    version: core.getInput('kformpkgVersion') || 'latest',
     sourcePath: core.getInput('sourcePkgDir') || 'config',
     ref: `${targetHostname}/${targetPkgNamespace}/${targetPkgName}:${version}`,
     kind: core.getInput('kind') || 'provider',

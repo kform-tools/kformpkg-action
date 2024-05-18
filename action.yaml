@@ -3,8 +3,8 @@ description: 'kformpkg-action, a release automation tool for kform providers and
 author: 'kform'
 
 inputs:
-  kformVersion:
-    description: 'kform version'
+  kformpkgVersion:
+    description: 'kform pkg version'
     default: 'latest'
     required: false
   kind:
