@@ -6,11 +6,10 @@ import * as context from "./context";
 import * as tc from "@actions/tool-cache";
 
 export async function install(version: string): Promise<string> {
-  const newversion = removeVfromVersion(version);
-  const filename = getFilename();
+  const filename = getFilename(version);
   const downloadUrl = util.format(
     "https://github.com/kform-tools/kformpkg/releases/download/%s/%s",
-    newversion,
+    version,
     filename,
   );
 
@@ -49,6 +48,8 @@ export async function install(version: string): Promise<string> {
   return exePath;
 }
 
+//https://github.com/kform-tools/kformpkg/releases/download/v0.0.1/kformpkg_0.0.1_darwin_x86_64.tar.gz
+
 function removeVfromVersion(version: string): string {
   const indexOfV = version.indexOf("v"); // Find the index of the first occurrence of 'v'
   if (indexOfV !== -1) {
@@ -59,7 +60,7 @@ function removeVfromVersion(version: string): string {
   }
 }
 
-const getFilename = (): string => {
+function getFilename(version: string): string {
   let arch: string;
   switch (context.osArch) {
     case "x64": {
@@ -91,5 +92,6 @@ const getFilename = (): string => {
         ? "Darwin"
         : "Linux";
   const ext: string = context.osPlat == "win32" ? "zip" : "tar.gz";
-  return util.format("kformpkg_%s_%s.%s", platform, arch, ext);
-};
+  const newversion = removeVfromVersion(version);
+  return util.format("kformpkg_%s_%s_%s.%s", newversion, platform, arch, ext);
+}

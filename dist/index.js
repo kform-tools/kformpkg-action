@@ -28226,9 +28226,8 @@ const context = __importStar(__nccwpck_require__(8834));
 const tc = __importStar(__nccwpck_require__(4274));
 function install(version) {
     return __awaiter(this, void 0, void 0, function* () {
-        const newversion = removeVfromVersion(version);
-        const filename = getFilename();
-        const downloadUrl = util.format("https://github.com/kform-tools/kformpkg/releases/download/%s/%s", newversion, filename);
+        const filename = getFilename(version);
+        const downloadUrl = util.format("https://github.com/kform-tools/kformpkg/releases/download/%s/%s", version, filename);
         core.info(`Downloading ${downloadUrl}`);
         const downloadPath = yield tc.downloadTool(downloadUrl);
         core.debug(`Downloaded to ${downloadPath}`);
@@ -28256,16 +28255,18 @@ function install(version) {
     });
 }
 exports.install = install;
+//https://github.com/kform-tools/kformpkg/releases/download/v0.0.1/kformpkg_0.0.1_darwin_x86_64.tar.gz
 function removeVfromVersion(version) {
-    const indexOfV = version.indexOf('v'); // Find the index of the first occurrence of 'v'
-    if (indexOfV !== -1) { // If 'v' is found
+    const indexOfV = version.indexOf("v"); // Find the index of the first occurrence of 'v'
+    if (indexOfV !== -1) {
+        // If 'v' is found
         return version.slice(0, indexOfV) + version.slice(indexOfV + 1); // Return the string without the first 'v'
     }
     else {
         return version; // If 'v' is not found, return the original string
     }
 }
-const getFilename = () => {
+function getFilename(version) {
     let arch;
     switch (context.osArch) {
         case "x64": {
@@ -28296,8 +28297,10 @@ const getFilename = () => {
             ? "Darwin"
             : "Linux";
     const ext = context.osPlat == "win32" ? "zip" : "tar.gz";
-    return util.format("kformpkg_%s_%s.%s", platform, arch, ext);
-};
+    const newversion = removeVfromVersion(version);
+    return util.format("kformpkg_%s_%s_%s.%s", newversion, platform, arch, ext);
+}
+;
 
 
 /***/ }),
