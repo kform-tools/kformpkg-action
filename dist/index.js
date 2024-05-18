@@ -28226,8 +28226,9 @@ const context = __importStar(__nccwpck_require__(8834));
 const tc = __importStar(__nccwpck_require__(4274));
 function install(version) {
     return __awaiter(this, void 0, void 0, function* () {
+        const newversion = removeVfromVersion(version);
         const filename = getFilename();
-        const downloadUrl = util.format("https://github.com/kform-tools/kformpkg/releases/download/%s/%s", version, filename);
+        const downloadUrl = util.format("https://github.com/kform-tools/kformpkg/releases/download/%s/%s", newversion, filename);
         core.info(`Downloading ${downloadUrl}`);
         const downloadPath = yield tc.downloadTool(downloadUrl);
         core.debug(`Downloaded to ${downloadPath}`);
@@ -28255,6 +28256,15 @@ function install(version) {
     });
 }
 exports.install = install;
+function removeVfromVersion(version) {
+    const indexOfV = version.indexOf('v'); // Find the index of the first occurrence of 'v'
+    if (indexOfV !== -1) { // If 'v' is found
+        return version.slice(0, indexOfV) + version.slice(indexOfV + 1); // Return the string without the first 'v'
+    }
+    else {
+        return version; // If 'v' is not found, return the original string
+    }
+}
 const getFilename = () => {
     let arch;
     switch (context.osArch) {

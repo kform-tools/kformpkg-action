@@ -6,10 +6,11 @@ import * as context from "./context";
 import * as tc from "@actions/tool-cache";
 
 export async function install(version: string): Promise<string> {
+  const newversion = removeVfromVersion(version);
   const filename = getFilename();
   const downloadUrl = util.format(
     "https://github.com/kform-tools/kformpkg/releases/download/%s/%s",
-    version,
+    newversion,
     filename,
   );
 
@@ -46,6 +47,16 @@ export async function install(version: string): Promise<string> {
   core.debug(`Exe path is ${exePath}`);
 
   return exePath;
+}
+
+function removeVfromVersion(version: string): string {
+  const indexOfV = version.indexOf("v"); // Find the index of the first occurrence of 'v'
+  if (indexOfV !== -1) {
+    // If 'v' is found
+    return version.slice(0, indexOfV) + version.slice(indexOfV + 1); // Return the string without the first 'v'
+  } else {
+    return version; // If 'v' is not found, return the original string
+  }
 }
 
 const getFilename = (): string => {
