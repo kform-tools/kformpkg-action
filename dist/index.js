@@ -28300,7 +28300,6 @@ function getFilename(version) {
     const newversion = removeVfromVersion(version);
     return util.format("kformpkg_%s_%s_%s.%s", newversion, platform, arch, ext);
 }
-;
 
 
 /***/ }),
