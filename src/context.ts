@@ -8,6 +8,7 @@ export interface Inputs {
   version: string;
   sourcePath: string;
   ref: string;
+  kind: string;
 }
 
 export async function getInputs(): Promise<Inputs> {
@@ -28,6 +29,7 @@ export async function getInputs(): Promise<Inputs> {
     version: core.getInput('kformVersion') || 'latest',
     sourcePath: core.getInput('sourcePkgDir') || 'config',
     ref: `${targetHostname}/${targetPkgNamespace}/${targetPkgName}:${version}`,
+    kind: core.getInput('kind') || 'provider',
   };
 }
 ;

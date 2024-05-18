@@ -9,11 +9,12 @@ async function run(): Promise<void> {
     console.log(`version: ${inputs.version}`);
     console.log(`sourcePath: ${inputs.sourcePath}`);
     console.log(`ref: ${inputs.ref}`);
+    console.log(`ref: ${inputs.ref}`);
     
     const bin = await kform.install(inputs.version);
-    core.info(`kform ${inputs.version} installed successfully`);
+    core.info(`kformpkg ${inputs.version} installed successfully`);
 
-    await exec.exec(`${bin} pkg push ${inputs.ref} ${inputs.sourcePath} --releaser`);
+    await exec.exec(`${bin} push ${inputs.ref} ${inputs.sourcePath} --kind ${inputs.sourcePath} --releaser`);
 
   } catch (error) {
     if (error instanceof Error) core.setFailed(error.message)

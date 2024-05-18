@@ -8,7 +8,7 @@ import * as tc from '@actions/tool-cache';
 export async function install(version: string): Promise<string> {
     const filename = getFilename();
     const downloadUrl = util.format(
-      'https://github.com/henderiw-nephio/kform/releases/download/%s/%s',
+      'https://github.com/kform-tools/kformpkg/releases/download/%s/%s',
       version,
       filename
     );
@@ -17,7 +17,7 @@ export async function install(version: string): Promise<string> {
     const downloadPath: string = await tc.downloadTool(downloadUrl);
     core.debug(`Downloaded to ${downloadPath}`);
   
-    core.info('Extracting kform');
+    core.info('Extracting kformpkg');
     let extPath: string;
     if (context.osPlat == 'win32') {
       if (!downloadPath.endsWith('.zip')) {
@@ -35,7 +35,7 @@ export async function install(version: string): Promise<string> {
     const cachePath: string = await tc.cacheDir(extPath, 'kformpkg-action', version);
     core.debug(`Cached to ${cachePath}`);
   
-    const exePath: string = path.join(cachePath, context.osPlat == 'win32' ? 'kform.exe' : 'kform');
+    const exePath: string = path.join(cachePath, context.osPlat == 'win32' ? 'kformpkg.exe' : 'kformpkg');
     core.debug(`Exe path is ${exePath}`);
   
     return exePath;
@@ -68,5 +68,5 @@ export async function install(version: string): Promise<string> {
     }
     const platform: string = context.osPlat == 'win32' ? 'Windows' : context.osPlat == 'darwin' ? 'Darwin' : 'Linux';
     const ext: string = context.osPlat == 'win32' ? 'zip' : 'tar.gz';
-    return util.format('kform_%s_%s.%s', platform, arch, ext);
+    return util.format('kformpkg_%s_%s.%s', platform, arch, ext);
   };
