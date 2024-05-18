@@ -28156,26 +28156,25 @@ exports.osArch = os.arch();
 function getInputs() {
     return __awaiter(this, void 0, void 0, function* () {
         // target info
-        const targetHostname = core.getInput('targetPkgRegistryHostname') || "";
+        const targetHostname = core.getInput("targetPkgRegistryHostname") || "";
         const repository = process.env.GITHUB_REPOSITORY || "";
         const repoSplit = repository.split("/");
         if (repoSplit.length !== 2) {
             // Your code here if the length is not equal to 2
-            core.setFailed('args input required');
+            core.setFailed("args input required");
         }
         const targetPkgNamespace = process.env.targetPkgNamespace || repository;
         const targetPkgName = process.env.targetPkgName || repoSplit[1];
         const version = process.env.GITHUB_REF_NAME || "";
         return {
-            version: core.getInput('kformpkgVersion') || 'latest',
-            sourcePath: core.getInput('sourcePkgDir') || 'config',
+            version: core.getInput("kformpkgVersion") || "latest",
+            sourcePath: core.getInput("sourcePkgDir") || "config",
             ref: `${targetHostname}/${targetPkgNamespace}/${targetPkgName}:${version}`,
-            kind: core.getInput('kind') || 'provider',
+            kind: core.getInput("kind") || "provider",
         };
     });
 }
 exports.getInputs = getInputs;
-;
 
 
 /***/ }),
@@ -28228,15 +28227,15 @@ const tc = __importStar(__nccwpck_require__(4274));
 function install(version) {
     return __awaiter(this, void 0, void 0, function* () {
         const filename = getFilename();
-        const downloadUrl = util.format('https://github.com/kform-tools/kformpkg/releases/download/%s/%s', version, filename);
+        const downloadUrl = util.format("https://github.com/kform-tools/kformpkg/releases/download/%s/%s", version, filename);
         core.info(`Downloading ${downloadUrl}`);
         const downloadPath = yield tc.downloadTool(downloadUrl);
         core.debug(`Downloaded to ${downloadPath}`);
-        core.info('Extracting kformpkg');
+        core.info("Extracting kformpkg");
         let extPath;
-        if (context.osPlat == 'win32') {
-            if (!downloadPath.endsWith('.zip')) {
-                const newPath = downloadPath + '.zip';
+        if (context.osPlat == "win32") {
+            if (!downloadPath.endsWith(".zip")) {
+                const newPath = downloadPath + ".zip";
                 fs.renameSync(downloadPath, newPath);
                 extPath = yield tc.extractZip(newPath);
             }
@@ -28248,9 +28247,9 @@ function install(version) {
             extPath = yield tc.extractTar(downloadPath);
         }
         core.debug(`Extracted to ${extPath}`);
-        const cachePath = yield tc.cacheDir(extPath, 'kformpkg-action', version);
+        const cachePath = yield tc.cacheDir(extPath, "kformpkg-action", version);
         core.debug(`Cached to ${cachePath}`);
-        const exePath = path.join(cachePath, context.osPlat == 'win32' ? 'kformpkg.exe' : 'kformpkg');
+        const exePath = path.join(cachePath, context.osPlat == "win32" ? "kformpkg.exe" : "kformpkg");
         core.debug(`Exe path is ${exePath}`);
         return exePath;
     });
@@ -28259,18 +28258,18 @@ exports.install = install;
 const getFilename = () => {
     let arch;
     switch (context.osArch) {
-        case 'x64': {
-            arch = 'x86_64';
+        case "x64": {
+            arch = "x86_64";
             break;
         }
-        case 'x32': {
-            arch = 'i386';
+        case "x32": {
+            arch = "i386";
             break;
         }
-        case 'arm': {
+        case "arm": {
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             const arm_version = process.config.variables.arm_version;
-            arch = arm_version ? 'armv' + arm_version : 'arm';
+            arch = arm_version ? "armv" + arm_version : "arm";
             break;
         }
         default: {
@@ -28278,12 +28277,16 @@ const getFilename = () => {
             break;
         }
     }
-    if (context.osPlat == 'darwin') {
-        arch = 'all';
+    if (context.osPlat == "darwin") {
+        arch = "all";
     }
-    const platform = context.osPlat == 'win32' ? 'Windows' : context.osPlat == 'darwin' ? 'Darwin' : 'Linux';
-    const ext = context.osPlat == 'win32' ? 'zip' : 'tar.gz';
-    return util.format('kformpkg_%s_%s.%s', platform, arch, ext);
+    const platform = context.osPlat == "win32"
+        ? "Windows"
+        : context.osPlat == "darwin"
+            ? "Darwin"
+            : "Linux";
+    const ext = context.osPlat == "win32" ? "zip" : "tar.gz";
+    return util.format("kformpkg_%s_%s.%s", platform, arch, ext);
 };
 
 
